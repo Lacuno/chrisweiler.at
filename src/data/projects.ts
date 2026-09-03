@@ -14,6 +14,8 @@ export interface Project {
 	image?: string;
 	imageAlt?: Record<Locale, string>;
 	mockup: MockupVariant;
+	/** Hover motion for 'figure' images: sideways sweep (default) or rise. */
+	figureMotion?: 'sweep' | 'rise';
 }
 
 // Titles and summaries are first drafts — adjust wording per project.
@@ -91,6 +93,12 @@ export const projects: Project[] = [
 			en: 'For a Vienna-based aviation family office that handles acquisition, operations and charter of business jets for its clients.',
 		},
 		color: '#1a1f3d',
-		mockup: 'mobile',
+		image: '/projects/jetlevel-plane.webp',
+		imageAlt: {
+			de: 'Startendes Flugzeug von vorne',
+			en: 'Aircraft taking off, seen from the front',
+		},
+		mockup: 'figure',
+		figureMotion: 'rise',
 	},
 ];

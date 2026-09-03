@@ -17,7 +17,7 @@ const darkText = project.color.toLowerCase() === '#f2b727';
 ---
 
 <Tag
-	class:list={['card', 'reveal', { 'card--dark-text': darkText, 'card--figure': project.mockup === 'figure' }]}
+	class:list={['card', 'reveal', { 'card--dark-text': darkText, 'card--figure': project.mockup === 'figure', 'card--rise': project.figureMotion === 'rise' }]}
 	style={`--card-bg:${project.color};--mock-accent:${project.color}`}
 	{...linkProps}
 	aria-label={project.url ? `${title} – ${t.projects.visit}` : undefined}
@@ -169,6 +169,18 @@ const darkText = project.color.toLowerCase() === '#f2b727';
 
 	a.card:hover .card__figure {
 		transform: translateX(-18%) translateY(-8%) rotate(-5deg) scale(1.14);
+	}
+
+	a.card--rise .card__figure {
+		width: 112%;
+		margin: 0.5rem -6% 5%;
+		-webkit-mask-image: none;
+		mask-image: none;
+		transform-origin: 50% 60%;
+	}
+
+	a.card--rise:hover .card__figure {
+		transform: translateY(-22%) scale(1.22) rotate(-2deg);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
