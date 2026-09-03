@@ -14,7 +14,7 @@ export interface Client {
 
 export const clients: Client[] = [
 	{ name: 'Werkspur', url: 'https://werkspur.com', style: 'bold' },
-	{ name: 'HappyFoto', url: 'https://www.happyfoto.at', style: 'rounded' },
+	{ name: 'HappyFoto', url: 'https://www.happyfoto.at', logo: '/logos/happyfoto.svg', style: 'rounded' },
 	{ name: 'Neuman Aluminium', url: 'https://www.neuman.at', style: 'wide' },
 	{ name: 'Jet Level', url: 'https://www.jetlevel.aero', style: 'italic' },
 	{ name: 'EOS', style: 'mono' },
