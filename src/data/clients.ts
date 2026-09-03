@@ -16,7 +16,7 @@ export const clients: Client[] = [
 	{ name: 'Werkspur', url: 'https://werkspur.com', style: 'bold' },
 	{ name: 'HappyFoto', url: 'https://www.happyfoto.at', style: 'rounded' },
 	{ name: 'Neuman Aluminium', url: 'https://www.neuman.at', style: 'wide' },
-	{ name: 'Jetlevel', url: 'https://www.jetlevel.com', style: 'italic' },
+	{ name: 'Jet Level', url: 'https://www.jetlevel.aero', style: 'italic' },
 	{ name: 'EOS', style: 'mono' },
 	{ name: 'Tricentis', url: 'https://www.tricentis.com', style: 'light' },
 ];
