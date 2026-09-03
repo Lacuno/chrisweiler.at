@@ -31,6 +31,11 @@ export const projects: Project[] = [
 			en: 'Real-time machine data, operator terminals and traceability. Runs on-premise and is ready in days.',
 		},
 		color: '#1f4ed8',
+		image: '/projects/werkspur-terminal.webp',
+		imageAlt: {
+			de: 'Screenshot des Werkspur Werker-Terminals: Los-Etikett scannen und Warteschlange der Maschine',
+			en: 'Screenshot of the Werkspur operator terminal: scanning a lot label and the machine queue',
+		},
 		mockup: 'dashboard',
 	},
 	{
