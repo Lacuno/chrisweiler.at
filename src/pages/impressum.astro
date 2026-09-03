@@ -1,0 +1,28 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { site } from '../data/site';
+---
+
+<LegalPage title="Impressum" path="impressum">
+	<h2>Informationen gemäß § 5 ECG und § 25 MedienG</h2>
+	<p>
+		{site.name}<br />
+		{site.address.map((l) => <>{l}<br /></>)}
+	</p>
+	<p>
+		E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+		Telefon: <a href={site.phoneHref}>{site.phone}</a>
+	</p>
+	<h2>Unternehmensgegenstand</h2>
+	<p>Dienstleistungen in der automatischen Datenverarbeitung und Informationstechnik (Softwareentwicklung, IT-Beratung).</p>
+	<h2>Gewerbe & Aufsicht</h2>
+	<p>Mitglied der Wirtschaftskammer Oberösterreich, Fachgruppe UBIT. Gewerbeordnung: <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener noreferrer">www.ris.bka.gv.at</a>.</p>
+	<p>Aufsichtsbehörde: Bezirkshauptmannschaft Freistadt.</p>
+	<!-- TODO: UID-Nummer und GISA-Zahl ergänzen, falls vorhanden. -->
+	<h2>Haftung für Inhalte und Links</h2>
+	<p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte wird jedoch keine Gewähr übernommen. Für Inhalte externer Links wird keine Haftung übernommen; für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+	<h2>Urheberrecht</h2>
+	<p>Die Inhalte dieser Website unterliegen dem österreichischen Urheberrecht. Logos und Markennamen genannter Unternehmen sind Eigentum der jeweiligen Rechteinhaber.</p>
+	<h2>Online-Streitbeilegung</h2>
+	<p>Verbraucher haben die Möglichkeit, Beschwerden an die Online-Streitbeilegungsplattform der EU zu richten: <a href="https://ec.europa.eu/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/odr</a>.</p>
+</LegalPage>

@@ -1,0 +1,285 @@
+---
+import type { MockupVariant } from '../data/projects';
+
+interface Props {
+	variant: MockupVariant;
+}
+const { variant } = Astro.props;
+---
+
+<div class:list={['mock', `mock--${variant}`]} aria-hidden="true">
+	{
+		variant === 'mobile' ? (
+			<div class="phone">
+				<div class="phone__bar" />
+				<div class="phone__hero" />
+				<div class="phone__row" />
+				<div class="phone__row phone__row--short" />
+				<div class="phone__cards">
+					<span />
+					<span />
+				</div>
+				<div class="phone__cta" />
+			</div>
+		) : (
+			<div class="win">
+				<div class="win__bar">
+					<span />
+					<span />
+					<span />
+				</div>
+				<div class="win__body">
+					<aside class="win__side">
+						<i />
+						<i />
+						<i />
+						<i />
+					</aside>
+					<div class="win__main">
+						{variant === 'dashboard' && (
+							<>
+								<div class="kpis">
+									<span />
+									<span />
+									<span />
+								</div>
+								<div class="chart">
+									<i style="height:40%" />
+									<i style="height:65%" />
+									<i style="height:50%" />
+									<i style="height:85%" />
+									<i style="height:60%" />
+									<i style="height:92%" />
+									<i style="height:70%" />
+								</div>
+							</>
+						)}
+						{variant === 'shop' && (
+							<>
+								<div class="line line--title" />
+								<div class="tiles">
+									<span />
+									<span />
+									<span />
+									<span />
+									<span />
+									<span />
+								</div>
+							</>
+						)}
+						{variant === 'table' && (
+							<>
+								<div class="line line--title" />
+								<div class="rows">
+									<span />
+									<span />
+									<span />
+									<span />
+									<span />
+								</div>
+							</>
+						)}
+					</div>
+				</div>
+			</div>
+		)
+	}
+</div>
+
+<style>
+	.mock {
+		position: absolute;
+		left: 8%;
+		right: -8%;
+		top: 0;
+		bottom: -6%;
+		filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.3));
+	}
+
+	.win {
+		height: 100%;
+		background: #fff;
+		border-radius: 12px 12px 0 0;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		color: #dfe3f0;
+	}
+
+	.win__bar {
+		display: flex;
+		gap: 6px;
+		padding: 10px 12px;
+		border-bottom: 1px solid #eef0f6;
+	}
+
+	.win__bar span {
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: #e2e5ee;
+	}
+
+	.win__body {
+		flex: 1;
+		display: grid;
+		grid-template-columns: 52px 1fr;
+	}
+
+	.win__side {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding: 16px 14px;
+		background: #f6f7fb;
+	}
+
+	.win__side i {
+		display: block;
+		height: 10px;
+		border-radius: 4px;
+		background: #dfe3f0;
+	}
+
+	.win__side i:first-child {
+		background: var(--mock-accent, #3d6cf6);
+	}
+
+	.win__main {
+		padding: 18px;
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	.kpis {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+	}
+
+	.kpis span {
+		height: 38px;
+		border-radius: 8px;
+		background: #f1f3f9;
+	}
+
+	.chart {
+		flex: 1;
+		display: flex;
+		align-items: flex-end;
+		gap: 8px;
+		min-height: 60px;
+	}
+
+	.chart i {
+		flex: 1;
+		border-radius: 4px 4px 0 0;
+		background: var(--mock-accent, #3d6cf6);
+		opacity: 0.85;
+	}
+
+	.line {
+		height: 10px;
+		border-radius: 5px;
+		background: #e6e9f2;
+	}
+
+	.line--title {
+		width: 45%;
+		height: 14px;
+		background: #c9ceE0;
+	}
+
+	.tiles {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+	}
+
+	.tiles span {
+		aspect-ratio: 1 / 1.1;
+		border-radius: 8px;
+		background: linear-gradient(160deg, #f1f3f9, #e3e7f1);
+	}
+
+	.rows {
+		display: flex;
+		flex-direction: column;
+		gap: 9px;
+	}
+
+	.rows span {
+		height: 22px;
+		border-radius: 6px;
+		background: #f1f3f9;
+		border-left: 3px solid var(--mock-accent, #3d6cf6);
+	}
+
+	.rows span:nth-child(even) {
+		border-left-color: #9fb0e8;
+	}
+
+	.mock--mobile {
+		left: auto;
+		right: 8%;
+		top: 0;
+		bottom: -10%;
+		width: 46%;
+	}
+
+	.phone {
+		height: 100%;
+		background: #fff;
+		border-radius: 26px 26px 0 0;
+		border: 6px solid #111426;
+		border-bottom: 0;
+		padding: 18px 12px 0;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.phone__bar {
+		width: 40%;
+		height: 6px;
+		border-radius: 3px;
+		background: #111426;
+		margin: -8px auto 6px;
+	}
+
+	.phone__hero {
+		height: 34%;
+		border-radius: 12px;
+		background: linear-gradient(140deg, var(--mock-accent, #3d6cf6), #7d9bff);
+	}
+
+	.phone__row {
+		height: 10px;
+		border-radius: 5px;
+		background: #e6e9f2;
+	}
+
+	.phone__row--short {
+		width: 60%;
+	}
+
+	.phone__cards {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px;
+	}
+
+	.phone__cards span {
+		height: 44px;
+		border-radius: 8px;
+		background: #f1f3f9;
+	}
+
+	.phone__cta {
+		margin-top: auto;
+		height: 34px;
+		border-radius: 10px;
+		background: var(--mock-accent, #3d6cf6);
+	}
+</style>

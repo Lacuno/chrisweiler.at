@@ -1,0 +1,141 @@
+---
+import { useTranslations } from '../i18n';
+
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+---
+
+<section class="hero" id="start">
+	<div class="container hero__grid">
+		<div class="hero__text">
+			<p class="hero__greeting">{t.hero.greeting}</p>
+			<h1 class="hero__title">{t.hero.title}</h1>
+			<p class="hero__subtitle">{t.hero.subtitle}</p>
+			<div class="hero__actions">
+				<a href="#projekte" class="btn btn--primary">{t.hero.primary}</a>
+				<a href="#ueber-mich" class="btn btn--ghost">{t.hero.secondary}</a>
+			</div>
+		</div>
+		<div class="hero__visual">
+			<div class="hero__glow" aria-hidden="true"></div>
+			<img
+				src="/images/christoph.png"
+				alt={t.hero.photoAlt}
+				width="448"
+				height="544"
+				fetchpriority="high"
+				class="hero__photo"
+			/>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		padding-block: clamp(3rem, 7vw, 5rem) clamp(3rem, 6vw, 5rem);
+	}
+
+	@keyframes hero-in {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	.hero__text,
+	.hero__visual {
+		animation: hero-in 0.7s ease both;
+	}
+
+	.hero__visual {
+		animation-delay: 0.15s;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero__text,
+		.hero__visual {
+			animation: none;
+		}
+	}
+
+	.hero__grid {
+		display: grid;
+		grid-template-columns: 1.15fr 0.85fr;
+		gap: 3rem;
+		align-items: center;
+	}
+
+	.hero__greeting {
+		font-size: 1.2rem;
+		color: var(--muted);
+		margin-bottom: 0.75rem;
+	}
+
+	.hero__title {
+		font-size: clamp(2.1rem, 4.2vw, 3rem);
+		max-width: 16ch;
+	}
+
+	.hero__subtitle {
+		margin-top: 1.25rem;
+		font-size: 1.15rem;
+		color: var(--muted);
+		max-width: 46ch;
+	}
+
+	.hero__actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
+
+	.hero__visual {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		min-height: 420px;
+	}
+
+	.hero__glow {
+		position: absolute;
+		inset: 10% 5% 0;
+		border-radius: 50%;
+		background: radial-gradient(closest-side, var(--glow), transparent 75%);
+		filter: blur(20px);
+	}
+
+	.hero__photo {
+		position: relative;
+		width: min(100%, 400px);
+		height: auto;
+		-webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+		mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+	}
+
+	@media (max-width: 820px) {
+		.hero__grid {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+
+		.hero__visual {
+			order: -1;
+			min-height: 0;
+		}
+
+		.hero__photo {
+			width: min(70%, 300px);
+		}
+
+		.hero__title {
+			max-width: none;
+		}
+	}
+</style>

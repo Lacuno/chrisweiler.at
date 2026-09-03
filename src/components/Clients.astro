@@ -1,0 +1,126 @@
+---
+import { useTranslations } from '../i18n';
+import { clients } from '../data/clients';
+
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+---
+
+<section class="clients section--alt">
+	<div class="container">
+		<p class="eyebrow clients__label reveal">{t.clients.label}</p>
+		<ul class="clients__grid reveal">
+			{
+				clients.map((c) => (
+					<li class="clients__item">
+						{c.url ? (
+							<a href={c.url} target="_blank" rel="noopener noreferrer" class="clients__link" aria-label={c.name}>
+								{c.logo ? <img src={c.logo} alt={c.name} loading="lazy" /> : <span class:list={['wordmark', `wordmark--${c.style}`]}>{c.name}</span>}
+							</a>
+						) : c.logo ? (
+							<img src={c.logo} alt={c.name} loading="lazy" />
+						) : (
+							<span class:list={['wordmark', `wordmark--${c.style}`]}>{c.name}</span>
+						)}
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.clients {
+		padding-block: 3.5rem 3.75rem;
+	}
+
+	.clients__label {
+		text-align: center;
+	}
+
+	.clients__grid {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 1rem 2rem;
+		margin-top: 2rem;
+		align-items: center;
+	}
+
+	.clients__item {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 44px;
+	}
+
+	.clients__link {
+		display: inline-flex;
+		color: inherit;
+	}
+
+	.clients__item img {
+		max-height: 34px;
+		width: auto;
+		filter: grayscale(1) opacity(0.6);
+		transition: filter 0.25s ease;
+	}
+
+	.clients__item:hover img {
+		filter: none;
+	}
+
+	.wordmark {
+		color: var(--faint);
+		white-space: nowrap;
+		line-height: 1;
+		transition: color 0.25s ease;
+		font-size: 1.05rem;
+	}
+
+	.clients__item:hover .wordmark {
+		color: var(--muted);
+	}
+
+	.wordmark--bold {
+		font-weight: 800;
+		letter-spacing: -0.03em;
+		font-size: 1.25rem;
+	}
+
+	.wordmark--rounded {
+		font-weight: 700;
+		font-size: 1.2rem;
+		letter-spacing: -0.01em;
+	}
+
+	.wordmark--wide {
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.16em;
+		font-size: 0.72rem;
+	}
+
+	.wordmark--italic {
+		font-weight: 600;
+		font-style: italic;
+		font-size: 1.15rem;
+	}
+
+	.wordmark--mono {
+		font-weight: 900;
+		letter-spacing: 0.22em;
+		font-size: 1.15rem;
+	}
+
+	.wordmark--light {
+		font-weight: 400;
+		font-size: 1.15rem;
+		letter-spacing: 0.02em;
+	}
+
+	@media (max-width: 720px) {
+		.clients__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>

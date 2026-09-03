@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import { getRelativeLocaleUrl, getAbsoluteLocaleUrl } from 'astro:i18n';
+import { useTranslations, otherLocale, locales } from '../i18n';
+
+interface Props {
+	title?: string;
+	description?: string;
+	/** Path of the current page relative to the locale root, e.g. "" or "impressum". */
+	path?: string;
+}
+
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+const { title = t.meta.title, description = t.meta.description, path = '' } = Astro.props;
+const canonical = getAbsoluteLocaleUrl(locale, path);
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={canonical} />
+		{locales.map((l) => <link rel="alternate" hreflang={l} href={getAbsoluteLocaleUrl(l, path)} />)}
+		<link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl('de', path)} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:locale" content={locale === 'de' ? 'de_AT' : 'en_US'} />
+		<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#0e1124" media="(prefers-color-scheme: dark)" />
+		<script is:inline>
+			(() => {
+				try {
+					const stored = localStorage.getItem('theme');
+					const system = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+					document.documentElement.dataset.theme = stored || system;
+				} catch {
+					document.documentElement.dataset.theme = 'light';
+				}
+			})();
+		</script>
+	</head>
+	<body>
+		<slot />
+		<script>
+			// Reveal-on-scroll
+			const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+			const items = document.querySelectorAll<HTMLElement>('.reveal');
+			if (reduce || !('IntersectionObserver' in window)) {
+				items.forEach((el) => el.classList.add('is-visible'));
+			} else {
+				const io = new IntersectionObserver(
+					(entries) => {
+						for (const e of entries) {
+							if (e.isIntersecting) {
+								(e.target as HTMLElement).classList.add('is-visible');
+								io.unobserve(e.target);
+							}
+						}
+					},
+					{ rootMargin: '0px 0px -10% 0px', threshold: 0.1 },
+				);
+				items.forEach((el) => io.observe(el));
+			}
+
+			// Language switch keeps the current section hash
+			document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]').forEach((a) => {
+				a.addEventListener('click', () => {
+					if (location.hash) a.href = a.href.split('#')[0] + location.hash;
+				});
+			});
+		</script>
+	</body>
+</html>

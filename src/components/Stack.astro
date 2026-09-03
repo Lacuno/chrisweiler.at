@@ -1,0 +1,72 @@
+---
+import { useTranslations } from '../i18n';
+import { stack } from '../data/stack';
+
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+---
+
+<section class="section" id="stack">
+	<div class="container">
+		<h2 class="section-title reveal">{t.stack.title}</h2>
+		<p class="section-intro reveal">{t.stack.intro}</p>
+		<ul class="tiles reveal">
+			{
+				stack.map((s) => (
+					<li class="tile">
+						<svg viewBox="0 0 24 24" width="36" height="36" role="img" aria-label={s.name} style={`color:#${s.hex}`}>
+							<path d={s.path} fill="currentColor" />
+						</svg>
+						<span>{s.name}</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.tiles {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 0.9rem;
+		margin-top: 3rem;
+	}
+
+	.tile {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1.4rem 0.75rem 1.1rem;
+		border-radius: var(--radius);
+		background: var(--card);
+		border: 1px solid var(--border);
+		box-shadow: var(--shadow);
+		font-size: 0.86rem;
+		font-weight: 600;
+		text-align: center;
+		transition: transform 0.25s ease;
+	}
+
+	.tile:hover {
+		transform: translateY(-4px);
+	}
+
+	:global([data-theme='dark']) .tile svg[style*='#000000'],
+	:global([data-theme='dark']) .tile svg[style*='#0F0F11'] {
+		color: #fff !important;
+	}
+
+	@media (max-width: 860px) {
+		.tiles {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+
+	@media (max-width: 520px) {
+		.tiles {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>

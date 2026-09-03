@@ -1,0 +1,63 @@
+---
+import { useTranslations } from '../i18n';
+import { projects } from '../data/projects';
+import ProjectCard from './ProjectCard.astro';
+import AboutCard from './AboutCard.astro';
+
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+const left = projects.filter((_, i) => i % 2 === 0);
+const right = projects.filter((_, i) => i % 2 === 1);
+---
+
+<section class="section projects" id="projekte">
+	<div class="container">
+		<h2 class="section-title reveal">{t.projects.title}</h2>
+		<p class="section-intro reveal">{t.projects.intro}</p>
+		<div class="projects__grid">
+			<div class="projects__col">
+				{left.map((p) => <ProjectCard project={p} />)}
+				<AboutCard />
+			</div>
+			<div class="projects__col projects__col--offset">
+				{right.map((p) => <ProjectCard project={p} />)}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.projects__grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5rem;
+		margin-top: 3.5rem;
+		align-items: start;
+	}
+
+	.projects__col {
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+	}
+
+	.projects__col--offset {
+		padding-top: 5rem;
+	}
+
+	@media (max-width: 720px) {
+		.projects__grid {
+			grid-template-columns: 1fr;
+			gap: 1.75rem;
+			margin-top: 2.5rem;
+		}
+
+		.projects__col {
+			gap: 1.75rem;
+		}
+
+		.projects__col--offset {
+			padding-top: 0;
+		}
+	}
+</style>

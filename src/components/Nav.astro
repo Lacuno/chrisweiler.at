@@ -1,0 +1,158 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations, otherLocale } from '../i18n';
+import { site } from '../data/site';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+	/** Path relative to locale root, used for the language switch target. */
+	path?: string;
+}
+const { path = '' } = Astro.props;
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+const other = otherLocale(locale);
+const home = getRelativeLocaleUrl(locale, '');
+const switchHref = getRelativeLocaleUrl(other, path);
+---
+
+<header class="nav">
+	<div class="container nav__inner">
+		<a href={home} class="nav__brand" aria-label={site.name}>
+			<span class="nav__mark" aria-hidden="true">CW</span>
+			<span>{site.name}</span>
+		</a>
+		<nav class="nav__links" aria-label="Main">
+			<a href={`${home}#projekte`}>{t.nav.projects}</a>
+			<a href={`${home}#leistungen`}>{t.nav.capabilities}</a>
+			<a href={`${home}#kontakt`} class="nav__contact">{t.nav.contact}</a>
+		</nav>
+		<div class="nav__tools">
+			<a
+				href={switchHref}
+				class="nav__lang"
+				data-lang-switch
+				hreflang={other}
+				lang={other}
+				aria-label={t.nav.switchLocale}
+				title={t.nav.switchLocale}>{other.toUpperCase()}</a
+			>
+			<ThemeToggle label={t.nav.toggleTheme} />
+		</div>
+	</div>
+</header>
+
+<style>
+	.nav {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: var(--nav-bg);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border-bottom: 1px solid var(--border);
+	}
+
+	.nav__inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		height: 66px;
+	}
+
+	.nav__brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-weight: 700;
+		font-size: 1.05rem;
+		color: var(--accent);
+	}
+
+	.nav__mark {
+		display: inline-grid;
+		place-items: center;
+		width: 30px;
+		height: 30px;
+		border-radius: 9px;
+		background: var(--accent);
+		color: #fff;
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.02em;
+	}
+
+	.nav__links {
+		display: flex;
+		gap: 2.2rem;
+		margin-left: auto;
+	}
+
+	.nav__links a {
+		color: var(--text);
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.nav__links a:hover,
+	.nav__contact {
+		color: var(--accent);
+	}
+
+	.nav__tools {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.nav__lang {
+		display: inline-grid;
+		place-items: center;
+		height: 34px;
+		padding-inline: 0.7rem;
+		border-radius: 999px;
+		border: 1px solid var(--border);
+		background: var(--card);
+		color: var(--muted);
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		transition: color 0.2s ease, border-color 0.2s ease;
+	}
+
+	.nav__lang:hover {
+		color: var(--accent);
+		border-color: var(--accent);
+	}
+
+	@media (max-width: 720px) {
+		.nav__brand span:last-child {
+			display: none;
+		}
+
+		.nav__links {
+			gap: 1.2rem;
+			font-size: 0.95rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.nav__inner {
+			gap: 0.6rem;
+		}
+
+		.nav__links {
+			gap: 0.75rem;
+			font-size: 0.85rem;
+		}
+
+		.nav__tools {
+			gap: 0.4rem;
+		}
+
+		.nav__lang {
+			padding-inline: 0.5rem;
+		}
+	}
+</style>

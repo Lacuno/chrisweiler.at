@@ -1,0 +1,120 @@
+---
+import { useTranslations } from '../i18n';
+import { site } from '../data/site';
+
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+---
+
+<section class="section section--alt contact" id="kontakt">
+	<div class="container contact__grid">
+		<div class="reveal">
+			<h2 class="contact__title">{t.contact.title}</h2>
+			{
+				site.available && (
+					<p class="contact__status">
+						<span class="contact__dot" aria-hidden="true" />
+						{t.contact.available}
+					</p>
+				)
+			}
+			<div class="contact__actions">
+				<a href={`mailto:${site.email}`} class="btn btn--primary">{t.contact.email}</a>
+				<a href={site.cv} class="btn btn--ghost" download>
+					<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+					</svg>
+					{t.contact.cv}
+				</a>
+			</div>
+		</div>
+		<address class="contact__details reveal">
+			<a href={site.phoneHref}>{site.phone}</a>
+			<a href={`mailto:${site.email}`}>{site.email}</a>
+		</address>
+	</div>
+</section>
+
+<style>
+	.contact {
+		padding-block: 4.5rem;
+	}
+
+	.contact__grid {
+		display: grid;
+		grid-template-columns: 1.4fr 1fr;
+		gap: 2rem;
+		align-items: start;
+	}
+
+	.contact__title {
+		font-size: clamp(1.6rem, 3vw, 2.1rem);
+		max-width: 22ch;
+	}
+
+	.contact__status {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin-top: 1rem;
+		font-size: 1.1rem;
+		color: var(--accent);
+	}
+
+	.contact__dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: var(--success);
+		box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+		animation: pulse 2s infinite;
+	}
+
+	@keyframes pulse {
+		0% {
+			box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+		}
+		70% {
+			box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+		}
+		100% {
+			box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+		}
+	}
+
+	.contact__actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem;
+		margin-top: 1.5rem;
+	}
+
+	.contact__details {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.4rem;
+		font-style: normal;
+		font-size: 1.15rem;
+		padding-top: 0.5rem;
+	}
+
+	.contact__details a {
+		color: var(--muted);
+	}
+
+	.contact__details a:hover {
+		color: var(--accent);
+	}
+
+	@media (max-width: 720px) {
+		.contact__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.contact__details {
+			align-items: flex-start;
+		}
+	}
+</style>

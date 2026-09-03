@@ -1,0 +1,28 @@
+---
+import LegalPage from '../../components/LegalPage.astro';
+import { site } from '../../data/site';
+---
+
+<LegalPage title="Imprint" path="imprint">
+	<h2>Information pursuant to § 5 ECG (Austrian E-Commerce Act)</h2>
+	<p>
+		{site.name}<br />
+		{site.address.map((l) => <>{l}<br /></>)}
+	</p>
+	<p>
+		Email: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+		Phone: <a href={site.phoneHref}>{site.phone}</a>
+	</p>
+	<h2>Business purpose</h2>
+	<p>IT services: software development and IT consulting.</p>
+	<h2>Trade & supervisory authority</h2>
+	<p>Member of the Upper Austrian Chamber of Commerce (WKO), professional group UBIT. Trade regulations: <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener noreferrer">www.ris.bka.gv.at</a>.</p>
+	<p>Supervisory authority: Bezirkshauptmannschaft Freistadt.</p>
+	<!-- TODO: add VAT ID and GISA number if applicable. -->
+	<h2>Liability for content and links</h2>
+	<p>The content of this website has been created with the greatest possible care. No guarantee is given for its accuracy, completeness or currency. No liability is accepted for the content of external links; the operators of the linked pages are solely responsible for their content.</p>
+	<h2>Copyright</h2>
+	<p>The content of this website is subject to Austrian copyright law. Logos and brand names of the companies mentioned are the property of their respective owners.</p>
+	<h2>Online dispute resolution</h2>
+	<p>Consumers may submit complaints to the EU online dispute resolution platform: <a href="https://ec.europa.eu/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/odr</a>.</p>
+</LegalPage>

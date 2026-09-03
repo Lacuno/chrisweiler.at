@@ -1,0 +1,68 @@
+---
+import { useTranslations } from '../i18n';
+import { site } from '../data/site';
+
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+---
+
+<article class="about reveal" id="ueber-mich">
+	<p class="eyebrow">{t.about.label}</p>
+	<h3 class="about__title">{t.about.title}</h3>
+	{t.about.body.map((p) => <p class="about__p">{p}</p>)}
+	<div class="about__meta">
+		<img src="/images/christoph.png" alt="" width="56" height="68" loading="lazy" class="about__avatar" />
+		<div>
+			<p class="about__name">{site.name}</p>
+			<p class="about__loc">{t.about.location}</p>
+		</div>
+	</div>
+</article>
+
+<style>
+	.about {
+		padding: 2rem;
+		border-radius: var(--radius-lg);
+		background: var(--card);
+		border: 1px solid var(--border);
+		box-shadow: var(--shadow);
+	}
+
+	.about__title {
+		margin-top: 0.5rem;
+		font-size: 1.5rem;
+	}
+
+	.about__p {
+		margin-top: 1rem;
+		color: var(--muted);
+		line-height: 1.65;
+	}
+
+	.about__meta {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		margin-top: 1.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--border);
+	}
+
+	.about__avatar {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		object-fit: cover;
+		object-position: top;
+		background: var(--accent-soft);
+	}
+
+	.about__name {
+		font-weight: 700;
+	}
+
+	.about__loc {
+		font-size: 0.9rem;
+		color: var(--muted);
+	}
+</style>

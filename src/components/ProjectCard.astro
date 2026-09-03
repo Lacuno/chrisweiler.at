@@ -1,0 +1,144 @@
+---
+import type { Project } from '../data/projects';
+import { pick, useTranslations } from '../i18n';
+import Mockup from './Mockup.astro';
+
+interface Props {
+	project: Project;
+}
+const { project } = Astro.props;
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+const title = pick(project.title, locale);
+const summary = pick(project.summary, locale);
+const Tag = project.url ? 'a' : 'article';
+const linkProps = project.url ? { href: project.url, target: '_blank', rel: 'noopener noreferrer' } : {};
+const darkText = project.color.toLowerCase() === '#f2b727';
+---
+
+<Tag
+	class:list={['card', 'reveal', { 'card--dark-text': darkText }]}
+	style={`--card-bg:${project.color};--mock-accent:${project.color}`}
+	{...linkProps}
+	aria-label={project.url ? `${title} – ${t.projects.visit}` : undefined}
+>
+	<div class="card__text">
+		<p class="card__client">{project.client}</p>
+		<h3 class="card__title">{title}</h3>
+		<p class="card__summary">{summary}</p>
+	</div>
+	<div class="card__media">
+		{
+			project.image ? (
+				<img class="card__image" src={project.image} alt={project.imageAlt ? pick(project.imageAlt, locale) : ''} loading="lazy" />
+			) : (
+				<Mockup variant={project.mockup} />
+			)
+		}
+	</div>
+</Tag>
+
+<style>
+	.card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		min-height: 540px;
+		padding: 2rem 2rem 0;
+		border-radius: var(--radius-lg);
+		background: var(--card-bg);
+		color: #fff;
+		box-shadow: var(--shadow-lg);
+		transition: transform 0.35s ease, box-shadow 0.35s ease;
+		isolation: isolate;
+	}
+
+	.card::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.08));
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	a.card:hover {
+		transform: translateY(-6px);
+		color: #fff;
+	}
+
+	.card__text {
+		position: relative;
+		z-index: 2;
+		padding-bottom: 1.75rem;
+	}
+
+	.card__client {
+		font-size: 0.74rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		opacity: 0.85;
+	}
+
+	.card__title {
+		margin-top: 0.6rem;
+		font-size: clamp(1.5rem, 2.3vw, 1.9rem);
+		color: inherit;
+	}
+
+	.card__summary {
+		margin-top: 0.8rem;
+		font-size: 0.98rem;
+		line-height: 1.55;
+		opacity: 0.88;
+		max-width: 38ch;
+	}
+
+	.card__media {
+		position: relative;
+		z-index: 1;
+		flex: 1;
+		min-height: 250px;
+	}
+
+	.card__image {
+		position: absolute;
+		left: 8%;
+		top: 0;
+		width: 100%;
+		border-radius: 12px 12px 0 0;
+		box-shadow: 0 30px 40px rgba(0, 0, 0, 0.3);
+		transition: transform 0.4s ease;
+	}
+
+	.card :global(.mock) {
+		transition: transform 0.4s ease;
+	}
+
+	a.card:hover :global(.mock),
+	a.card:hover .card__image {
+		transform: translateY(-8px);
+	}
+
+	:global([data-theme='dark']) .card {
+		box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.08);
+	}
+
+	.card--dark-text,
+	a.card--dark-text:hover {
+		color: #1a1a1a;
+	}
+
+	@media (max-width: 720px) {
+		.card {
+			min-height: 460px;
+			padding: 1.5rem 1.5rem 0;
+		}
+
+		.card__media {
+			min-height: 200px;
+		}
+	}
+</style>

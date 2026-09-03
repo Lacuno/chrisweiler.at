@@ -1,0 +1,65 @@
+---
+import { useTranslations, pick } from '../i18n';
+import { capabilities } from '../data/capabilities';
+
+const locale = Astro.currentLocale ?? 'de';
+const t = useTranslations(locale);
+---
+
+<section class="section section--alt" id="leistungen">
+	<div class="container">
+		<h2 class="section-title reveal">{t.capabilities.title}</h2>
+		<p class="section-intro reveal">{t.capabilities.intro}</p>
+		<div class="caps">
+			{
+				capabilities.map((c) => (
+					<div class="cap reveal">
+						<span class="cap__emoji" aria-hidden="true">
+							{c.emoji}
+						</span>
+						<h3 class="cap__title">{pick(c.title, locale)}</h3>
+						<ul class="cap__list">
+							{pick(c.items, locale).map((item) => (
+								<li>{item}</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.caps {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2.5rem;
+		margin-top: 3.5rem;
+		text-align: center;
+	}
+
+	.cap__emoji {
+		display: inline-block;
+		font-size: 2.6rem;
+		line-height: 1;
+	}
+
+	.cap__title {
+		margin-top: 1rem;
+		font-size: 1.35rem;
+	}
+
+	.cap__list {
+		margin-top: 1rem;
+		color: var(--muted);
+		line-height: 1.9;
+	}
+
+	@media (max-width: 720px) {
+		.caps {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+	}
+</style>

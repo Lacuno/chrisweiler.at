@@ -1,0 +1,7 @@
+---
+import MessagePage from '../components/MessagePage.astro';
+import { useTranslations } from '../i18n';
+const t = useTranslations('de');
+---
+
+<MessagePage title={t.notFound.title} body={t.notFound.body} back={t.notFound.back} path="" />
