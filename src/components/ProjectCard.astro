@@ -17,7 +17,7 @@ const darkText = project.color.toLowerCase() === '#f2b727';
 ---
 
 <Tag
-	class:list={['card', 'reveal', { 'card--dark-text': darkText }]}
+	class:list={['card', 'reveal', { 'card--dark-text': darkText, 'card--figure': project.mockup === 'figure' }]}
 	style={`--card-bg:${project.color};--mock-accent:${project.color}`}
 	{...linkProps}
 	aria-label={project.url ? `${title} – ${t.projects.visit}` : undefined}
@@ -141,22 +141,34 @@ const darkText = project.color.toLowerCase() === '#f2b727';
 		border-radius: 20px 20px 0 0;
 	}
 
+	/* Figure cards let the cut-out escape the card on hover */
+	.card--figure {
+		overflow: visible;
+		min-height: 0;
+	}
+
+	.card--figure .card__media {
+		z-index: 3;
+		min-height: 0;
+		flex: none;
+	}
+
 	.card__figure {
-		position: absolute;
-		right: -14%;
-		bottom: -3%;
-		height: 110%;
-		width: auto;
+		position: relative;
+		display: block;
+		width: 100%;
+		height: auto;
+		margin-bottom: -2%;
 		max-width: none;
 		filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.35));
 		-webkit-mask-image: linear-gradient(to top, transparent 0, #000 8%);
 		mask-image: linear-gradient(to top, transparent 0, #000 8%);
-		transform-origin: 60% 35%;
+		transform-origin: 64% 30%;
 		transition: transform 0.7s cubic-bezier(0.22, 0.8, 0.3, 1);
 	}
 
 	a.card:hover .card__figure {
-		transform: translateX(-5%) rotate(-3deg);
+		transform: translateX(-18%) translateY(-8%) rotate(-5deg) scale(1.14);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
