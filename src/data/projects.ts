@@ -65,15 +65,15 @@ export const projects: Project[] = [
 	},
 	{
 		id: 'jetlevel',
-		client: 'Jetlevel',
-		url: 'https://www.jetlevel.com',
+		client: 'Jet Level',
+		url: 'https://www.jetlevel.aero',
 		title: {
-			de: 'Charter-Buchung für Privatjets, rund um die Uhr',
-			en: 'Around-the-clock private jet charter booking',
+			de: 'Digitale Abläufe für Privatjet-Eigentümer',
+			en: 'Digital workflows for private jet owners',
 		},
 		summary: {
-			de: 'Anfrage- und Buchungsplattform für einen US-Charteranbieter mit Zugriff auf über 5.000 Flugzeuge.',
-			en: 'Quote and booking platform for a US charter provider with access to more than 5,000 aircraft.',
+			de: 'Für ein Wiener Aviation Family Office, das Kauf, Betrieb und Charter von Business-Jets für seine Kunden abwickelt.',
+			en: 'For a Vienna-based aviation family office that handles acquisition, operations and charter of business jets for its clients.',
 		},
 		color: '#1a1f3d',
 		mockup: 'mobile',
