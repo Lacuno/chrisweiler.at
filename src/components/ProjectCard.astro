@@ -29,7 +29,11 @@ const darkText = project.color.toLowerCase() === '#f2b727';
 	</div>
 	<div class="card__media">
 		{
-			project.image ? (
+			project.image && project.mockup === 'mobile' ? (
+				<div class="card__phone">
+					<img src={project.image} alt={project.imageAlt ? pick(project.imageAlt, locale) : ''} loading="lazy" />
+				</div>
+			) : project.image ? (
 				<img class="card__image" src={project.image} alt={project.imageAlt ? pick(project.imageAlt, locale) : ''} loading="lazy" />
 			) : (
 				<Mockup variant={project.mockup} />
@@ -113,12 +117,35 @@ const darkText = project.color.toLowerCase() === '#f2b727';
 		transition: transform 0.4s ease;
 	}
 
+	.card__phone {
+		position: absolute;
+		right: 6%;
+		top: 0;
+		bottom: -10%;
+		width: 58%;
+		padding: 6px 6px 0;
+		background: #111426;
+		border-radius: 26px 26px 0 0;
+		box-shadow: 0 30px 40px rgba(0, 0, 0, 0.3);
+		overflow: hidden;
+		transition: transform 0.4s ease;
+	}
+
+	.card__phone img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+		border-radius: 20px 20px 0 0;
+	}
+
 	.card :global(.mock) {
 		transition: transform 0.4s ease;
 	}
 
 	a.card:hover :global(.mock),
-	a.card:hover .card__image {
+	a.card:hover .card__image,
+	a.card:hover .card__phone {
 		transform: translateY(-8px);
 	}
 

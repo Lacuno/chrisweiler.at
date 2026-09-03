@@ -38,15 +38,20 @@ export const projects: Project[] = [
 		client: 'HappyFoto',
 		url: 'https://www.happyfoto.at',
 		title: {
-			de: 'Bestellplattform für personalisierte Fotoprodukte',
-			en: 'Ordering platform for personalised photo products',
+			de: 'Fotobücher gestalten und bestellen per App',
+			en: 'Design and order photo books from an app',
 		},
 		summary: {
-			de: 'Für Österreichs größten Fotobuch-Produzenten: stabile Bestellprozesse und Anbindung an die Produktion.',
-			en: "For Austria's largest photo-book producer: reliable ordering flows connected to production.",
+			de: 'HappyFoto smart moments: Fotos auswählen, automatisch layouten, individuell anpassen und direkt bei Österreichs größtem Fotobuch-Produzenten bestellen.',
+			en: "HappyFoto smart moments: pick photos, get an automatic layout, fine-tune it and order directly from Austria's largest photo-book producer.",
 		},
 		color: '#f2b727',
-		mockup: 'shop',
+		image: '/projects/happyfoto-app.jpg',
+		imageAlt: {
+			de: 'Screenshot der HappyFoto smart moments App: Fotobuch-Seiten im Editor anpassen',
+			en: 'Screenshot of the HappyFoto smart moments app: adjusting photo-book pages in the editor',
+		},
+		mockup: 'mobile',
 	},
 	{
 		id: 'neuman',
