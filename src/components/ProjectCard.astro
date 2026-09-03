@@ -29,7 +29,9 @@ const darkText = project.color.toLowerCase() === '#f2b727';
 	</div>
 	<div class="card__media">
 		{
-			project.image && project.mockup === 'mobile' ? (
+			project.image && project.mockup === 'figure' ? (
+				<img class="card__figure" src={project.image} alt={project.imageAlt ? pick(project.imageAlt, locale) : ''} loading="lazy" />
+			) : project.image && project.mockup === 'mobile' ? (
 				<div class="card__phone">
 					<img src={project.image} alt={project.imageAlt ? pick(project.imageAlt, locale) : ''} loading="lazy" />
 				</div>
@@ -137,6 +139,30 @@ const darkText = project.color.toLowerCase() === '#f2b727';
 		object-fit: cover;
 		object-position: top;
 		border-radius: 20px 20px 0 0;
+	}
+
+	.card__figure {
+		position: absolute;
+		right: -14%;
+		bottom: -3%;
+		height: 110%;
+		width: auto;
+		max-width: none;
+		filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.35));
+		-webkit-mask-image: linear-gradient(to top, transparent 0, #000 8%);
+		mask-image: linear-gradient(to top, transparent 0, #000 8%);
+		transform-origin: 60% 35%;
+		transition: transform 0.7s cubic-bezier(0.22, 0.8, 0.3, 1);
+	}
+
+	a.card:hover .card__figure {
+		transform: translateX(-5%) rotate(-3deg);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		a.card:hover .card__figure {
+			transform: none;
+		}
 	}
 
 	.card :global(.mock) {

@@ -1,6 +1,6 @@
 import type { Locale } from '../i18n';
 
-export type MockupVariant = 'dashboard' | 'shop' | 'table' | 'mobile';
+export type MockupVariant = 'dashboard' | 'shop' | 'table' | 'mobile' | 'figure';
 
 export interface Project {
 	id: string;
@@ -71,7 +71,12 @@ export const projects: Project[] = [
 			en: 'Internal applications for an international supplier with twelve plants worldwide.',
 		},
 		color: '#2b6f8f',
-		mockup: 'table',
+		image: '/projects/neuman-worker.webp',
+		imageAlt: {
+			de: 'Arbeiter mit Schutzhelm trägt ein langes Aluminiumprofil auf der Schulter',
+			en: 'Worker in a hard hat carrying a long aluminium profile on his shoulder',
+		},
+		mockup: 'figure',
 	},
 	{
 		id: 'jetlevel',
